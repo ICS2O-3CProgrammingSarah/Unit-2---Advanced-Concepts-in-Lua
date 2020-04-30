@@ -35,7 +35,7 @@ local spaceSoundChannel
 
 -- The function that moves the beetleship across the screen
 local function movespaceship()
-    spaceship.alpha = spaceship.alpha -0.001
+    spaceship.alpha = spaceship.alpha 
 end
 
 -- The function that will go to the main menu 
