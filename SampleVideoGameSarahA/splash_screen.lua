@@ -26,9 +26,11 @@ local scene = composer.newScene( sceneName )
 local beetleship
 local scrollXSpeed = 8
 local scrollYSpeed = -3
-local jungleSounds = audio.loadSound("Sounds/animals144.mp3")
-local jungleSoundsChannel
+local spaceSound = audio.loadSound("Sounds/space.mp3.mp3")
+local spaceSoundChannel
 
+local spaceSound = audio.loadSound("Sounds/spaceMusic.mp3.mp3")
+local spaceSoundChannel
 --------------------------------------------------------------------------------------------
 -- LOCAL FUNCTIONS
 --------------------------------------------------------------------------------------------
@@ -124,7 +126,7 @@ function scene:hide( event )
     elseif ( phase == "did" ) then
         
         -- stop the jungle sounds channel for this screen
-        audio.stop(jungleSoundsChannel)
+        audio.stop(spaceSoundChannel)
     end
 
 end --function scene:hide( event )

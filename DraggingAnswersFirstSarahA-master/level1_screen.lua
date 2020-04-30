@@ -23,6 +23,22 @@ sceneName = "level1_screen"
 -- Creating Scene Object
 local scene = composer.newScene( sceneName )
 
+---------------------------------------------------------------
+--LOCAL SOUND 
+-----------------------------------------------------------
+-- sound effects
+local correctSoundC
+local correctSoundChannel
+
+local booSound
+local booSoundChannel
+
+--local bkgMusic = audio.loadSound(Sound/----.mp3, {channel = 1, loops = -1})
+--local bkgMusicSoundChanl
+
+
+
+
 -----------------------------------------------------------------------------------------
 -- LOCAL VARIABLES
 -----------------------------------------------------------------------------------------
@@ -38,6 +54,7 @@ local questionText
 local correctAnswer
 local alternateAnswer1
 local alternateAnswer2    
+local aternateAnswer3
 
 -- Variables containing the user answer and the actual answer
 local userAnswer
@@ -46,11 +63,13 @@ local userAnswer
 local answerboxAlreadyTouched = false
 local alternateAnswerBox1AlreadyTouched = false
 local alternateAnswerBox2AlreadyTouched = false
+local alternateAnswerBox3AlreadyTouched = false
 
 --create textboxes holding answer and alternate answers 
 local answerbox
 local alternateAnswerBox1
 local alternateAnswerBox2
+local alternateAnswerBox3   
 
 -- create variables that will hold the previous x- and y-positions so that 
 -- each answer will return back to its previous position after it is moved
@@ -65,9 +84,7 @@ local alternateAnswerBox2PreviousX
 -- the black box where the user will drag the answer
 local userAnswerBoxPlaceholder
 
--- sound effects
-local correctSound
-local booSound
+
 
 -----------------------------------------------------------------------------------------
 -- LOCAL FUNCTIONS
@@ -125,7 +142,7 @@ local function PositionAnswers()
     -------------------------------------------------------------------------------------------
     --ROMDOMLY SELECT ANSWER BOX POSITIONS
     -----------------------------------------------------------------------------------------
-    randomPosition = math.random(1,3)
+    randomPosition = math.random(1,4)
 
     -- random position 1
     if (randomPosition == 1) then
@@ -142,6 +159,7 @@ local function PositionAnswers()
         --remembering their positions to return the answer in case it's wrong
         alternateAnswerBox1PreviousY = alternateAnswerBox1.y
         alternateAnswerBox2PreviousY = alternateAnswerBox2.y
+        alternateAnswerBox3PreviousY = alternateAnswerBox2.y
         answerboxPreviousY = answerbox.y 
 
     -- random position 2
@@ -158,6 +176,7 @@ local function PositionAnswers()
         --remembering their positions to return the answer in case it's wrong
         alternateAnswerBox1PreviousY = alternateAnswerBox1.y
         alternateAnswerBox2PreviousY = alternateAnswerBox2.y
+        alternateAnswerBox3PreviousY = alternateAnswerBox2.y
         answerboxPreviousY = answerbox.y 
 
     -- random position 3
@@ -373,6 +392,7 @@ function scene:create( event )
     answerboxAlreadyTouched = false
     alternateAnswerBox1AlreadyTouched = false
     alternateAnswerBox2AlreadyTouched = false
+    alternateAnswerBox3AlreadyTouched = false
 
     --create answerbox alternate answers and the boxes to show them
     answerbox = display.newText("", display.contentWidth * 0.9, 0, nil, 100)
@@ -383,6 +403,7 @@ function scene:create( event )
     answerboxPreviousX = display.contentWidth * 0.9
     alternateAnswerBox1PreviousX = display.contentWidth * 0.9
     alternateAnswerBox2PreviousX = display.contentWidth * 0.9
+    alternateAnswerBox3PreviousX = display.contentWidth * 0.9
 
 
     -- the black box where the user will drag the answer
@@ -400,6 +421,7 @@ function scene:create( event )
     sceneGroup:insert( answerbox )
     sceneGroup:insert( alternateAnswerBox1 )
     sceneGroup:insert( alternateAnswerBox2 )
+    sceneGroup:insert( alternateAnswerBox3 )
     sceneGroup:insert( soccerball )
 
 end --function scene:create( event )
@@ -424,6 +446,7 @@ function scene:show( event )
         -- Called when the scene is now on screen.
         -- Insert code here to make the scene come alive.
         -- Example: start timers, begin animation, play audio, etc.
+        --bkgMusicChannel = audio.play(bkgMusic)
         RestartLevel1()
         AddAnswerBoxEventListeners() 
 
@@ -452,7 +475,7 @@ function scene:hide( event )
 
     elseif ( phase == "did" ) then
         -- Called immediately after scene goes off screen.
-        audio.stop()
+        --audio.stop(bkgMusicSoundChannel)
         RemoveAnswerBoxEventListeners()
     end
 

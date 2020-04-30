@@ -37,6 +37,12 @@ local playButton
 local creditsButton
 local instructionsButton
 
+------------------------------------------------------------------------------------
+--SOUNDS
+------------------------------------------------------------------------------------
+local bkgMusic = audio.loadStream("Sounds/bkgMusic.mp3.mp3")
+audio.play(bkgMusic, {loops = -1})
+
 -----------------------------------------------------------------------------------------
 -- LOCAL FUNCTIONS
 -----------------------------------------------------------------------------------------
@@ -55,7 +61,7 @@ end
 
 -- Creating Transition to Instruction Screen
 local function InstructionsTransition( )
-    composer.gotoScene( "instruction_screen", {effect = "zoomInOutFade", time = 1000})
+    composer.gotoScene( "instructions_screen", {effect = "zoomInOutFade", time = 1000})
 end    
 -----------------------------------------------------------------------------------------
 -- GLOBAL SCENE FUNCTIONS
@@ -96,6 +102,10 @@ function scene:create( event )
             x = display.contentWidth/2,
             y = display.contentHeight*7/8,
 
+            --change the width and the height
+            width = 200,
+            height = 100,
+
             -- Insert the images here
             defaultFile = "Images/Start Button Unpressed.png",
             overFile = "Images/Start Button Pressed.png",
@@ -113,6 +123,10 @@ function scene:create( event )
             x = display.contentWidth*7/8,
             y = display.contentHeight*7/8,
 
+            --change the width and the height
+            width = 200,
+            height = 100,
+
             -- Insert the images here
             defaultFile = "Images/Credits Button Unpressed.png",
             overFile = "Images/Credits Button Pressed.png",
@@ -128,6 +142,8 @@ function scene:create( event )
             -- Set its position on the screen relative to the screen size
             x = display.contentWidth*1.5/8,
             y = display.contentHeight*7/8,
+
+            --change the width and the height
 
             width = 250,
             height = 100,
@@ -145,7 +161,7 @@ function scene:create( event )
     -- Associating button widgets with this scene
     sceneGroup:insert( playButton )
     sceneGroup:insert( creditsButton )
-    sceneGroup:insert( instructionsButton )
+    sceneGroup:insert( InstructionsButton )
 
     
     -- INSERT INSTRUCTIONS BUTTON INTO SCENE GROUP
