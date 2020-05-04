@@ -110,28 +110,22 @@ local function DisplayAnswers( )
         answerTextObject.x = display.contentWidth*.3        
         wrongAnswer1TextObject.x = display.contentWidth*.2
         wrongAnswer2TextObject.x = display.contentWidth*.1
-        wrongAnswer3TextObject.x = display.contentWidth*.4 
+        wrongAnswer3TextObject.x = display.contentWidth*.4
 
 
     elseif (answerPosition == 2) then
        
         answerTextObject.x = display.contentWidth*.2        
         wrongAnswer1TextObject.x = display.contentWidth*.1
-        wrongAnswer2TextObject.x = display.contentWidth*.3
+        wrongAnswer2TextObject.x = display.contentWidth*.4
+        wrongAnswer3TextObject.x = display.contentWidhth*.3
 
   elseif (answerPosition == 3) then
-        answerTextObject.x = display.contentWidth*.3
+        answerTextObject.x = display.contentWidth*.1  
         wrongAnswer1TextObject.x = display.contentWidth*.2
-        wrongAnswer2TextObject.x = display.contentWidth*.1
-        wrongAnswer3TextObject.x = display.contentWidth*.5
-
-
-    else
-       
-        answerTextObject.x = display.contentWidth*.1        
-        wrongAnswer1TextObject.x = display.contentWidth*.3
-        wrongAnswer2TextObject.x = display.contentWidth*.2
-    end
+        wrongAnswer2TextObject.x = display.contentWidth*.4
+        wrongAnswer3TextObject.x = display.contentWidth*.3
+   end
 
 end
 
@@ -176,8 +170,9 @@ local function RestartScene()
     if (lives == 0) then
        LoseScreenTransition( )
     
-    elseif (numberCorrect == 1) then
-        WinScreenTransition
+    if (numberCorrect == 3) then
+        WinScreenTransition( )
+     
     else 
 
         DisplayAddEquation()
