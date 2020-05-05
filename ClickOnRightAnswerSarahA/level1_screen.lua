@@ -153,9 +153,9 @@ local function DisplayAddEquation()
 
     -- displays text on text object
     addEquationTextObject.text = addEquationString
-
-    
 end
+
+
 
 
 local function RestartScene()
