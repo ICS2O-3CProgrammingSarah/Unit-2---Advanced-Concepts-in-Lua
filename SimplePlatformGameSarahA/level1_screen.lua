@@ -76,6 +76,12 @@ local theBall
 
 local questionsAnswered = 0
 
+local spikeSound = audio.loadSound("Sounds/spike.mp3.mp3")
+local spikeSoundChannel
+
+local loseSound = audio.loadSound("Sounds/YouLose.mp3")
+local loseSoundChannel
+
 -----------------------------------------------------------------------------------------
 -- LOCAL SCENE FUNCTIONS
 ----------------------------------------------------------------------------------------- 
@@ -197,6 +203,8 @@ local function onCollision( self, event )
             (event.target.myName == "spikes3") then
 
             -- add sound effect here
+            spikeSoundChannel = audio.play(spikeSound)
+
 
             -- remove runtime listeners that move the character
             RemoveArrowEventListeners()
@@ -219,6 +227,7 @@ local function onCollision( self, event )
                 heart1.isVisible = false
                 heart2.isVisible = false
                 timer.performWithDelay(200, YouLoseTransition)
+                loseSoundChannel = audio.play(loseSound)
             end
         end
 
@@ -247,9 +256,10 @@ local function onCollision( self, event )
             --check to see if the user has answered 5 questions
             if (questionsAnswered == 3) then
                 -- after getting 3 questions right, go to the you win screen
-                composer.gotoScene( "you_win" )
-            end
-        end        
+                timer.performWithDelay(200, YouWinTransition)
+        
+           end
+      end        
 
     end
 end

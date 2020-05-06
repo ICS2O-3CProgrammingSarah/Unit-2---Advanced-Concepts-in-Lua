@@ -178,11 +178,27 @@ local function PositionAnswers()
         wrongText2.x = X2
         wrongText2.y = Y1
 
-        wrongText3.x = X1
+        wrongText3.x = X2
         wrongText3.y = Y2
 
         
     elseif (answerPosition == 2) then
+
+        answerText.x = X1
+        answerText.y = Y2
+            
+        wrongText1.x = X2
+        wrongText1.y = Y1
+            
+        wrongText2.x = X2
+        wrongText2.y = Y2
+
+        wrongText3.x = X1
+        wrongText3.y = Y1
+
+
+
+    elseif (answerPosition == 3) then
 
         answerText.x = X2
         answerText.y = Y1
@@ -195,36 +211,20 @@ local function PositionAnswers()
 
         wrongText3.x = X1
         wrongText3.y = Y2
-
-
-
-    elseif (answerPosition == 3) then
-
-        answerText.x = X2
-        answerText.y = Y1
-            
-        wrongText1.x = X1
-        wrongText1.y = Y1
-            
-        wrongText2.x = X1
-        wrongText2.y = Y1
-
-        wrongText3.x = X2
-        wrongText3.y = Y2
             
    elseif (answerPosition == 4) then
       
-        answerText.x = X1
+        answerText.x = X2
         answerText.y = Y2
             
         wrongText1.x = X1
         wrongText1.y = Y1
             
-        wrongText2.x = X2
-        wrongText2.y = Y1
+        wrongText2.x = X1
+        wrongText2.y = Y2
 
         wrongText3.x = X2
-        wrongText3.y = Y2
+        wrongText3.y = Y1
 
 
     end
@@ -275,6 +275,7 @@ function scene:create( event )
     sceneGroup:insert(answerText)
     sceneGroup:insert(wrongText1)
     sceneGroup:insert(wrongText2)
+    sceneGroup:insert(wrongText3)
 
 
 end --function scene:create( event )
