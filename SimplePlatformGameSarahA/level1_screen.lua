@@ -227,7 +227,7 @@ local function onCollision( self, event )
                 heart1.isVisible = false
                 heart2.isVisible = false
                 timer.performWithDelay(200, YouLoseTransition)
-                loseSoundChannel = audio.play(loseSound)
+                loseSoundChannel = audio.play(loseSound )
             end
         end
 
@@ -250,7 +250,7 @@ local function onCollision( self, event )
 
             -- Increment questions answered
             questionsAnswered = questionsAnswered + 1
-        end
+       end
 
         if (event.target.myName == "door") then
             --check to see if the user has answered 5 questions

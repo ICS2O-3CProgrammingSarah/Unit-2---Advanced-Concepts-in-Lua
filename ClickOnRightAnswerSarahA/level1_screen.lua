@@ -107,23 +107,23 @@ local function DisplayAnswers( )
 
     if (answerPosition == 1) then                
         
-        answerTextObject.x = display.contentWidth*.3        
-        wrongAnswer1TextObject.x = display.contentWidth*.2
-        wrongAnswer2TextObject.x = display.contentWidth*.1
-        wrongAnswer3TextObject.x = display.contentWidth*.4
+        answerTextObject.x = display.contentWidth*.4       
+        wrongAnswer1TextObject.x = display.contentWidth*.3
+        wrongAnswer2TextObject.x = display.contentWidth*.2
+        wrongAnswer3TextObject.x = display.contentWidth*.1
 
 
     elseif (answerPosition == 2) then
        
-        answerTextObject.x = display.contentWidth*.2        
-        wrongAnswer1TextObject.x = display.contentWidth*.1
-        wrongAnswer2TextObject.x = display.contentWidth*.4
-        wrongAnswer3TextObject.x = display.contentWidhth*.3
+        answerTextObject.x = display.contentWidth*.1     
+        wrongAnswer1TextObject.x = display.contentWidth*.2
+        wrongAnswer2TextObject.x = display.contentWidth*.3
+        wrongAnswer3TextObject.x = display.contentWidhth*.4
 
   elseif (answerPosition == 3) then
-        answerTextObject.x = display.contentWidth*.1  
-        wrongAnswer1TextObject.x = display.contentWidth*.2
-        wrongAnswer2TextObject.x = display.contentWidth*.4
+        answerTextObject.x = display.contentWidth*.2 
+        wrongAnswer1TextObject.x = display.contentWidth*.4
+        wrongAnswer2TextObject.x = display.contentWidth*.1
         wrongAnswer3TextObject.x = display.contentWidth*.3
    end
 
@@ -154,8 +154,6 @@ local function DisplayAddEquation()
     -- displays text on text object
     addEquationTextObject.text = addEquationString
 end
-
-
 
 
 local function RestartScene()
@@ -239,7 +237,28 @@ local function TouchListenerWrongAnswer2(touch)
             end        
     
         end
-end
+end end
+
+local function TouchListenerWrongAnswer3(touch)
+    -- get the user answer from the text object that was clicked on
+    local userAnswer = wrongAnswer3TextObject.text
+
+      
+        if (touch.phase == "ended") and (alreadyClickedAnswer == false) then
+
+            alreadyClickedAnswer = true
+
+
+            if (answer ~= tonumber(userAnswer)) then
+                -- decrease a life
+                lives = lives - 1
+                -- call RestartScene after 1 second
+                timer.performWithDelay( 1000, RestartScene )            
+            end        
+    
+        end
+end end
+
     
 -- Function that adds the touch listeners to each of the answer objects
 local function AddTextObjectListeners()
@@ -247,6 +266,7 @@ local function AddTextObjectListeners()
     answerTextObject:addEventListener("touch", TouchListenerAnswer)
     wrongAnswer1TextObject:addEventListener("touch", TouchListenerWrongAnswer1)
     wrongAnswer2TextObject:addEventListener("touch", TouchListenerWrongAnswer2)
+    wrongAnswer3TextObject:addEventListener("touch", TouchListenerWrongAnswer3)
 
 end
 
@@ -256,6 +276,7 @@ local function RemoveTextObjectListeners()
     answerTextObject:removeEventListener("touch", TouchListenerAnswer)
     wrongAnswer1TextObject:removeEventListener("touch", TouchListenerWrongAnswer1)
     wrongAnswer2TextObject:removeEventListener("touch", TouchListenerWrongAnswer2)
+    wrongAnswer3TextObject:removeEventListener("touch", TouchListenerWrongAnswer3)
 
 end
 
@@ -312,6 +333,11 @@ function scene:create( event )
     correct:setTextColor(100/255, 47/255, 210/255)
     correct.isVisible = false
 
+   -- create the text object that will say Incorrect, set the colour and then hide it
+    correct = display.newText("Incorrect", display.contentWidth/2, display.contentHeight*1/3, nil, 50 )
+    correct:setTextColor(216/255, 191/255, 216/255)
+    correct.isVisible = false
+
     -- create the text object that will say Out of Time, set the colour and then hide it
     outOfTimeText = display.newText("Out of Time!", display.contentWidth*2/5, display.contentHeight*1/3, nil, 50)
     outOfTimeText:setTextColor(100/255, 47/255, 210/255)
@@ -329,6 +355,7 @@ function scene:create( event )
     sceneGroup:insert( answerTextObject )
     sceneGroup:insert( wrongAnswer1TextObject )
     sceneGroup:insert( wrongAnswer2TextObject )
+    sceneGroup:insert( wrongAnswer3TextObject )
     sceneGroup:insert( congratulationText )
     sceneGroup:insert( correct )
     sceneGroup:insert( level1Text )
