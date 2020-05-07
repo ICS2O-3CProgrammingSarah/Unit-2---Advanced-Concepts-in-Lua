@@ -107,34 +107,45 @@ local function DisplayAnswers( )
 
     if (answerPosition == 1) then                
         
-        answerTextObject.x = display.contentWidth*.4       
-        wrongAnswer1TextObject.x = display.contentWidth*.3
-        wrongAnswer2TextObject.x = display.contentWidth*.2
-        wrongAnswer3TextObject.x = display.contentWidth*.1
-
+        answerTextObject.x = display.contentWidth*.1        
+        wrongAnswer1TextObject.x = display.contentWidth*.2
+        wrongAnswer2TextObject.x = display.contentWidth*.3
+        wrongAnswer3TextObject.x = display.contentWidth*.4
+        
 
     elseif (answerPosition == 2) then
        
-        answerTextObject.x = display.contentWidth*.1     
-        wrongAnswer1TextObject.x = display.contentWidth*.2
-        wrongAnswer2TextObject.x = display.contentWidth*.3
-        wrongAnswer3TextObject.x = display.contentWidhth*.4
+        answerTextObject.x = display.contentWidth*.4        
+        wrongAnswer1TextObject.x = display.contentWidth*.1
+        wrongAnswer2TextObject.x = display.contentWidth*.2
+        wrongAnswer3TextObject.x = display.contentWidth*.3 
 
-  elseif (answerPosition == 3) then
-        answerTextObject.x = display.contentWidth*.2 
+    elseif (answerPosition == 3) then
+       
+        answerTextObject.x = display.contentWidth*.3       
         wrongAnswer1TextObject.x = display.contentWidth*.4
         wrongAnswer2TextObject.x = display.contentWidth*.1
-        wrongAnswer3TextObject.x = display.contentWidth*.3
-   end
+        wrongAnswer3TextObject.x = display.contentWidth*.2
 
+    elseif (answerPosition == 4) then
+       
+        answerTextObject.x = display.contentWidth*.2      
+        wrongAnswer1TextObject.x = display.contentWidth*.3
+        wrongAnswer2TextObject.x = display.contentWidth*.4
+        wrongAnswer3TextObject.x = display.contentWidth*.1
+    end
 end
 
+ 
+
+
+    
 -- Function that transitions to Lose Screen
 local function LoseScreenTransition( )        
     composer.gotoScene( "you_lose", {effect = "zoomInOutFade", time = 1000})
 end 
 
--- Function that transitions to Win Screen
+-- Function that transitions to Lose Screen
 local function WinScreenTransition( )        
     composer.gotoScene( "you_win", {effect = "zoomInOutFade", time = 1000})
 end 
@@ -153,6 +164,8 @@ local function DisplayAddEquation()
 
     -- displays text on text object
     addEquationTextObject.text = addEquationString
+
+    
 end
 
 
@@ -166,12 +179,10 @@ local function RestartScene()
 
     -- if they have 0 lives, go to the You Lose screen
     if (lives == 0) then
-       LoseScreenTransition( )
-    
-    if (numberCorrect == 3) then
-        WinScreenTransition( )
-     
-    else 
+        LoseScreenTransition()
+    elseif (numberCorrect == 3) then 
+        WinScreenTrasition()
+
 
         DisplayAddEquation()
         DetermineAnswers()
@@ -237,7 +248,8 @@ local function TouchListenerWrongAnswer2(touch)
             end        
     
         end
-end end
+end
+
 
 local function TouchListenerWrongAnswer3(touch)
     -- get the user answer from the text object that was clicked on
@@ -257,8 +269,7 @@ local function TouchListenerWrongAnswer3(touch)
             end        
     
         end
-end end
-
+end
     
 -- Function that adds the touch listeners to each of the answer objects
 local function AddTextObjectListeners()
@@ -315,8 +326,9 @@ function scene:create( event )
     answerTextObject = display.newText("", display.contentWidth*.4, display.contentHeight/2, nil, 50 )
     wrongAnswer1TextObject = display.newText("", display.contentWidth*.3, display.contentHeight/2, nil, 50 )
     wrongAnswer2TextObject = display.newText("", display.contentWidth*.2, display.contentHeight/2, nil, 50 )
-    wrongAnswer3TextObject = display.newText("", display.contentWidth*.4, display.contentHeight/2, nil, 50 ) 
-
+    wrongAnswer3TextObject = display.newText("", display.contentWidth*.2, display.contentHeight/2, nil, 50 )
+  
+    
     --displays the number correct
     numberCorrectText = display.newText("", display.contentWidth*4/5, display.contentHeight*6/7, nil, 25)
 
@@ -331,11 +343,6 @@ function scene:create( event )
     -- create the text object that will say Correct, set the colour and then hide it
     correct = display.newText("Correct", display.contentWidth/2, display.contentHeight*1/3, nil, 50 )
     correct:setTextColor(100/255, 47/255, 210/255)
-    correct.isVisible = false
-
-   -- create the text object that will say Incorrect, set the colour and then hide it
-    correct = display.newText("Incorrect", display.contentWidth/2, display.contentHeight*1/3, nil, 50 )
-    correct:setTextColor(216/255, 191/255, 216/255)
     correct.isVisible = false
 
     -- create the text object that will say Out of Time, set the colour and then hide it
