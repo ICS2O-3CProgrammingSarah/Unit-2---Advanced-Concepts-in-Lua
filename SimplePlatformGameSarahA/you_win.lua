@@ -34,7 +34,7 @@ local bkg
 ----------------------------------------------------------------
 ---BACKGROUND MUSIC
 ---------------------------------------------------------------
-local bkgMusic = audio.loadStream( Sounds/bkgMusic.mp3.mp3)
+local bkgMusic = audio.loadSound("Sounds/bkg.mp3.mp3")
 audio.play(bkgMusic, {loops = -1})
 
 --------------------------------------------------------------------------------------
