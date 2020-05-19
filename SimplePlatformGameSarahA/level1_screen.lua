@@ -82,6 +82,14 @@ local spikeSoundChannel
 local loseSound = audio.loadSound("Sounds/YouLose.mp3")
 local loseSoundChannel
 
+local bkgMusic
+local bkgMusicSoundChannel
+------------------------------------------------------
+--BACKGROUND SOUND 
+------------------------------------------------------
+local bkgMusic = audio.loadSound("Sounds/bkg.mp3.mp3")
+audio.play(bkgMusic, {loop =-1})
+
 -----------------------------------------------------------------------------------------
 -- LOCAL SCENE FUNCTIONS
 ----------------------------------------------------------------------------------------- 
@@ -636,6 +644,8 @@ function scene:hide( event )
     -----------------------------------------------------------------------------------------
 
     elseif ( phase == "did" ) then
+        --stop the background bkgMusic
+        audio.stop(bkgMusicSoundChannel)
         -- Called immediately after scene goes off screen.
         RemoveCollisionListeners()
         RemovePhysicsBodies()

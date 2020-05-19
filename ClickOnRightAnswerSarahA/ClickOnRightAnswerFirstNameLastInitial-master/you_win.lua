@@ -64,6 +64,10 @@ end
 -- The function called when the scene is issued to appear on screen
 function scene:show( event )
 
+    --add background music
+    local bkgMusic = audio.loadStream("Sounds/bkgMusic.mp3.mp3")
+    audio.play(bkgMusic, {loops = -1})
+
     -- Creating a group that associates objects with the scene
     local sceneGroup = self.view
 

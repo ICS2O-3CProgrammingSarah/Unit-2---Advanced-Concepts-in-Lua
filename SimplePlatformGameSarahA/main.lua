@@ -18,3 +18,7 @@ local composer = require( "composer" )
 
 -- Go to the intro screen
 composer.gotoScene( "level1_screen" )
+
+---------------------------------------
+local bkgMusic = audio.loadStream("Sounds/bkgMusic.mp3.mp.mp3")
+audio.play(bkgMusic, {loop =-1})

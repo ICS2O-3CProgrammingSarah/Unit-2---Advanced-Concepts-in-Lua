@@ -72,6 +72,12 @@ local congratulationText
 -- Displays text that says correct.
 local correct 
 
+--Displays text that says incorrect
+local incorrect
+
+--displays the number of incorrect that the user has
+local numberIncorrectText
+
 -- Displays the level text of time text
 local level1Text 
 
@@ -173,17 +179,19 @@ local function RestartScene()
 
     alreadyClickedAnswer = false
     correct.isVisible = false
+    incorrect.isVisible = false
 
     livesText.text = "Number of lives = " .. tostring(lives)
     numberCorrectText.text = "Number correct = " .. tostring(numberCorrect)
 
+
     -- if they have 0 lives, go to the You Lose screen
-    if (lives == 0) then
+    if (lives == 3) then
         LoseScreenTransition()
     elseif (numberCorrect == 3) then 
-        WinScreenTrasition()
+        WinScreenTransition()
 
-
+    else
         DisplayAddEquation()
         DetermineAnswers()
         DisplayAnswers()
@@ -206,7 +214,7 @@ local function TouchListenerAnswer(touch)
             numberCorrect = numberCorrect + 1
             -- call RestartScene after 1 second
             timer.performWithDelay( 1000, RestartScene )
-        end        
+       end 
 
     end
 end
@@ -224,8 +232,8 @@ local function TouchListenerWrongAnswer1(touch)
             -- decrease a life
             lives = lives - 1
             -- call RestartScene after 1 second
-            timer.performWithDelay( 1000, RestartScene )            
-        end        
+            timer.performWithDelay( 1000, RestartScene ) 
+        end     
 
     end
 end
@@ -294,7 +302,10 @@ end
 -----------------------------------------------------------------------------------------
 -- GLOBAL FUNCTIONS
 -----------------------------------------------------------------------------------------
-
+-- create the text object that will say Correct, set the colour and then hide it
+incorrect= display.newText("Correct", display.contentWidth/2, display.contentHeight*1/3, nil, 50 )
+incorrect:setTextColor(100/255, 47/255, 210/255)
+incorrect.isVisible = false
 
 -----------------------------------------------------------------------------------------
 -- GLOBAL SCENE FUNCTIONS
@@ -332,6 +343,9 @@ function scene:create( event )
     --displays the number correct
     numberCorrectText = display.newText("", display.contentWidth*4/5, display.contentHeight*6/7, nil, 25)
 
+   --display the number incorrect
+   numberincorrectText = display.newText("", display.contentWidth*4/5, display.contentHeight*6/7, nil, 25)
+   
     -- create the text object that will hold the number of lives
     livesText = display.newText("", display.contentWidth*4/5, display.contentHeight*8/9, nil, 25) 
 
@@ -345,6 +359,8 @@ function scene:create( event )
     correct:setTextColor(100/255, 47/255, 210/255)
     correct.isVisible = false
 
+    
+
     -- create the text object that will say Out of Time, set the colour and then hide it
     outOfTimeText = display.newText("Out of Time!", display.contentWidth*2/5, display.contentHeight*1/3, nil, 50)
     outOfTimeText:setTextColor(100/255, 47/255, 210/255)
@@ -357,6 +373,7 @@ function scene:create( event )
     -- Insert objects into scene group
     sceneGroup:insert( bkg )  
     sceneGroup:insert( numberCorrectText )
+    sceneGroup:insert( numberincorrectText )
     sceneGroup:insert( livesText )
     sceneGroup:insert( addEquationTextObject )
     sceneGroup:insert( answerTextObject )
@@ -365,6 +382,7 @@ function scene:create( event )
     sceneGroup:insert( wrongAnswer3TextObject )
     sceneGroup:insert( congratulationText )
     sceneGroup:insert( correct )
+    sceneGroup:insert( incorrect )
     sceneGroup:insert( level1Text )
 end
 

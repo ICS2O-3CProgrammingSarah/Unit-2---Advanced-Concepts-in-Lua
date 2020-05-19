@@ -28,6 +28,8 @@ sceneName = "level1_question"
 -- Creating Scene Object
 local scene = composer.newScene( sceneName )
 
+
+
 -----------------------------------------------------------------------------------------
 -- LOCAL VARIABLES
 -----------------------------------------------------------------------------------------
@@ -61,6 +63,10 @@ local Y2 = display.contentHeight*5.5/7
 local userAnswer
 local textTouched = false
 
+local correct = audio.loadSound("correct.wav")
+local correctSoundChannel
+
+
 -----------------------------------------------------------------------------------------
 --LOCAL FUNCTIONS
 -----------------------------------------------------------------------------------------
@@ -78,6 +84,8 @@ local function TouchListenerAnswer(touch)
     userAnswer = answerText.text
     
     if (touch.phase == "ended") then
+
+        correctSoundChannel = audio.play(correct)
 
         BackToLevel1( )
     
