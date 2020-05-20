@@ -88,7 +88,11 @@ local function TouchListenerAnswer(touch)
     
     if (touch.phase == "ended") then
 
-        correctSoundChannel = audio.play(correct)
+
+       if (soundOn == true) then
+          --play sound effect
+          correctSoundChannel = audio.play(correct)
+       end 
 
         BackToLevel1( )
     
@@ -101,7 +105,10 @@ local function TouchListenerWrongAnswer(touch)
     
     if (touch.phase == "ended") then
 
-        incorrectSoundChannel = audio.play(incorrect)
+       if (soundOn == true) then
+           --play sound effect
+           incorrectSoundChannel = audio.play(incorrect)
+       end 
         
         BackToLevel1( )
         
@@ -115,7 +122,10 @@ local function TouchListenerWrongAnswer2(touch)
     
     if (touch.phase == "ended") then
 
-        incorrectSoundChannel = audio.play(incorrect)
+       if (soundOn == true) then
+            --play sound effect
+            incorrectSoundChannel = audio.play(incorrect)
+       end 
 
         BackToLevel1( )
         
@@ -128,7 +138,10 @@ local function TouchListenerWrongAnswer3(touch)
     
     if (touch.phase == "ended") then
 
-        incorrectSoundChannel = audio.play(incorrect)
+       if (soundOn == true) then
+           --play sound effect
+           incorrectSoundChannel = audio.play(incorrect)
+       end 
 
         BackToLevel1( )
         

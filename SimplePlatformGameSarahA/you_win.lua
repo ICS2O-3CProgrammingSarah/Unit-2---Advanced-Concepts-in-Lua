@@ -34,6 +34,7 @@ local bkg
 ----------------------------------------------------------------
 ---BACKGROUND MUSIC
 ---------------------------------------------------------------
+local bkgMusicSoundChannel
 local bkgMusic = audio.loadSound("Sounds/bkg.mp3.mp3")
 audio.play(bkgMusic, {loops = -1})
 
@@ -84,6 +85,13 @@ function scene:show( event )
         -- Called when the scene is now on screen.
         -- Insert code here to make the scene come alive.
         -- Example: start timers, begin animation, play audio, etc.
+
+        if (soundOn == true) then
+            --play sound effect
+            bkgMusicSoundChannel = audio.play(bkgMusic)
+       end 
+
+
     end
 
 end

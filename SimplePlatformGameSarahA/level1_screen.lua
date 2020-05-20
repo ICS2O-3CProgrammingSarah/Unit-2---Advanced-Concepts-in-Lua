@@ -27,6 +27,12 @@ sceneName = "level1_screen"
 -- Creating Scene Object
 local scene = composer.newScene( sceneName )
 
+---------------------------------------------------------------------------------------
+--GLOBAL VARIABLE
+---------------------------------------------------------------------------------------
+soundOn = true
+
+
 -----------------------------------------------------------------------------------------
 -- LOCAL VARIABLES
 -----------------------------------------------------------------------------------------
@@ -74,6 +80,9 @@ local ball2
 local ball3
 local theBall
 
+local muteButton
+local unmuteButton
+
 local questionsAnswered = 0
 
 local spikeSound = audio.loadSound("Sounds/spike.mp3.mp3")
@@ -82,14 +91,8 @@ local spikeSoundChannel
 local loseSound = audio.loadSound("Sounds/YouLose.mp3")
 local loseSoundChannel
 
-local bkgMusic
-local bkgMusicSoundChannel
-------------------------------------------------------
---BACKGROUND SOUND 
-------------------------------------------------------
 local bkgMusic = audio.loadSound("Sounds/bkg.mp3.mp3")
-audio.play(bkgMusic, {loop =-1})
-
+local bkgMusicSoundChannel
 -----------------------------------------------------------------------------------------
 -- LOCAL SCENE FUNCTIONS
 ----------------------------------------------------------------------------------------- 
@@ -148,6 +151,64 @@ local function RemoveRuntimeListeners()
     Runtime:removeEventListener("enterFrame", movePlayer)
     Runtime:removeEventListener("touch", stop )
 end
+
+local function Mute(touch)
+    if (touch.phase == "ended") then 
+      --pause the music  
+       audio.pause(bkgMusicSoundChannel)
+
+
+      --turn the music off
+      soundOn = false
+
+      --create the unmute button invisible and the mute button visible
+      muteButton.isVisible = true
+      unmuteButton.isVisible = false 
+
+
+   end 
+   
+end
+
+local function unMute(touch)
+    if (touch.phase == "ended") then 
+      --pause the music  
+       audio.resume(bkgMusicSoundChannel)
+
+
+      --turn the music off
+      soundOn = true
+
+      --create the unmute button invisible and the mute button visible
+      muteButton.isVisible = false
+      unmuteButton.isVisible = true
+
+
+   end 
+   
+end
+
+local function Mute(touch)
+    --pause the music
+    audio.pause(bkgMusicSoundChannel)
+end 
+
+local function unMute(touch)
+    --resume the music
+    audio.resume(bkgMusicSoundChannel)
+end 
+
+
+local function AddMuteUnmuteListeners()
+    unmuteButton:addEventListener("touch", Mute)
+    muteButton:addEventListener("touch", unMute)
+end 
+
+local function RemoveMuteUnmuteListeners()
+    unmuteButton:RemoveEventListener("touch", Mute)
+    muteButton:RemoveEventListener("touch", unMute)
+end 
+
 
 
 local function ReplaceCharacter()
@@ -523,7 +584,7 @@ function scene:create( event )
     -- Insert objects into the scene group in order to ONLY be associated with this scene
     sceneGroup:insert( leftW )
 
-     -- Insert objects into the scene group in order to ONLY be associated with this scene
+    -- Insert objects into the scene group in order to ONLY be associated with this scene
     sceneGroup:insert( leftW )
 
     rightW = display.newLine( 0, 0, 0, display.contentHeight)
@@ -574,6 +635,23 @@ function scene:create( event )
     -- Insert objects into the scene group in order to ONLY be associated with this scene
     sceneGroup:insert( ball3 )
 
+    --add the mute muteButton
+    muteButton = display.newImageRect ("Images/muteButton.png", 70, 70)
+    muteButton.x = 960
+    muteButton.y = 50
+    muteButton.isVisible = false
+
+    --add the mute muteButton
+    unmuteButton = display.newImageRect ("Images/unmuteButton.png", 70, 70)
+    unmuteButton.x = 960
+    unmuteButton.y = 50
+    unmuteButton.isVisible = true
+
+    -- Insert objects into the scene group in order to ONLY be associated with this scene
+    sceneGroup:insert( muteButton )
+    sceneGroup:insert( unmuteButton )
+
+
 end --function scene:create( event )
 
 -----------------------------------------------------------------------------------------
@@ -606,6 +684,16 @@ function scene:show( event )
         numLives = 2
         questionsAnswered = 0
 
+       if (soundOn == true) then
+            --play the background music
+           bkgMusicSoundChannel = audio.play(bkgMusic, {channel = 1, loops = -1})
+           muteButton.isVisible = false
+           unmuteButton.isVisible = true  
+       else
+
+       
+       end 
+
         -- make all soccer balls visible
         MakeSoccerBallsVisible()
 
@@ -620,6 +708,9 @@ function scene:show( event )
 
         -- create the character, add physics bodies and runtime listeners
         ReplaceCharacter()
+
+        --add the mute and unmute functionality to the buttons
+        AddMuteUnmuteListeners()
 
     end
 
@@ -652,6 +743,7 @@ function scene:hide( event )
 
         physics.stop()
         RemoveArrowEventListeners()
+        RemoveMuteUnmuteEventListeners()
         RemoveRuntimeListeners()
         display.remove(character)
     end
